@@ -1,11 +1,8 @@
-
-
 // Intercept all fetch requests (this will get triggered not just for fetch API calls from JS but also all images, CSS, JS, etc loaded from HTML)
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   console.log('[SW] Fetching Something...', event);
 
   // event.respondWith(
-
 
   //     // Otherwise fetch it from the network as usual
 
@@ -21,20 +18,5 @@ self.addEventListener('fetch', event => {
   //         })
   //         .catch(err => console.error(err));
 
-
   // );
-
-
-
-
 });
-
-
-
-
-
-
-
-
-
-
