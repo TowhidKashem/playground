@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply m-0 bg-gray-200 p-10 antialiased;
+  // font-family: 110%/1.5 'Open Sans', sans-serif;
+  font-family: 110%/1.5 system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bg-flash {
+  background-color: red;
+  transition: background-color 1000ms linear;
+}

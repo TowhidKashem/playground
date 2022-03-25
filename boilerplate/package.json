@@ -1,0 +1,71 @@
+{
+  "name": "boilerplate",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://foo.com/bar",
+  "author": {
+    "name": "Towhid Kashem",
+    "email": "tkashem@gmail.com",
+    "url": "https://github.com/TowhidKashem"
+  },
+  "scripts": {
+    "dev": "open http://localhost:3000 && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "netlify": "yarn netlify deploy --dir=out",
+    "precommit": "pretty-quick --staged",
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "eslint-all-dry-run": "eslint \"**/*.{ts,tsx}\" --rulesdir=./eslint-rules",
+    "eslint-all-fix": "eslint \"**/*.{ts,tsx}\" --rulesdir=./eslint-rules --fix",
+    "pretty-all-dry-run": "prettier \"**/*.{ts,tsx,json,scss,css,md}\"",
+    "pretty-all-fix": "prettier --write \"**/*.{ts,tsx,json,scss,css,md}\""
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.0.0",
+    "@fortawesome/free-regular-svg-icons": "^6.0.0",
+    "@fortawesome/free-solid-svg-icons": "^6.0.0",
+    "@fortawesome/react-fontawesome": "^0.1.17",
+    "@react-spring/web": "^9.4.4",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.0",
+    "@tailwindcss/line-clamp": "^0.3.1",
+    "@tailwindcss/typography": "^0.5.2",
+    "autoprefixer": "^10.4.2",
+    "classnames": "^2.3.1",
+    "cors": "^2.8.5",
+    "next": "12.0.8",
+    "next-i18next": "^10.5.0",
+    "postcss": "^8.4.5",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.28.1",
+    "swr": "^1.2.2",
+    "tailwindcss": "^3.0.16"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.3.1",
+    "@types/jest": "^27.4.1",
+    "@types/node": "17.0.12",
+    "@types/react": "17.0.38",
+    "dotenv": "^16.0.0",
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.0.8",
+    "husky": "^7.0.4",
+    "i18nexus-cli": "^2.1.0",
+    "netlify-cli": "^9.5.0",
+    "node-sass": "^7.0.1",
+    "prettier": "^2.6.0",
+    "prettier-plugin-tailwindcss": "^0.1.8",
+    "pretty-quick": "^3.1.3",
+    "typescript": "4.5.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  }
+}
