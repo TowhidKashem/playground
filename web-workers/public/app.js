@@ -23,6 +23,7 @@ async function showRegisteredWorkers(unregisterAll = false) {
     for (let worker of registeredWorkers) {
       worker.unregister();
     }
+    console.log('registeredWorkers:', registeredWorkers);
   }
 }
 
