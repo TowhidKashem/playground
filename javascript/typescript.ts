@@ -189,6 +189,7 @@ const foobar4: Greeting2 = [false, 2]; // invalid
 
 /*
   Self explanatory string helpers:
+
     Uppercase<StringType>
     Lowercase<StringType>
     Capitalize<StringType>
