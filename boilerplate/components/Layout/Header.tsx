@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Select, { Option } from '@components/Select/Select';
 
-function getLanguageDropdownOptions(
-  locales: string[],
-  currentLocale: string
-): Option[] {
+function getLanguageDropdownOptions(locales: string[]): Option[] {
   const isoLabelMap = {
     en: 'English',
     fr: 'Français',
@@ -15,8 +12,7 @@ function getLanguageDropdownOptions(
   };
   const options = locales.map((locale) => ({
     label: isoLabelMap[locale],
-    value: locale,
-    selected: locale === currentLocale
+    value: locale
   }));
   return options;
 }
@@ -36,6 +32,17 @@ const navItems = [
   }
 ];
 
+const themes = [
+  {
+    label: 'Light',
+    value: 'light'
+  },
+  {
+    label: 'Dark',
+    value: 'dark'
+  }
+];
+
 const Header: NextPage<
   Readonly<{
     foo: boolean;
@@ -43,10 +50,22 @@ const Header: NextPage<
 > = ({ foo }) => {
   const { push, pathname, locales, locale } = useRouter();
 
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    }
+  }, []);
+
   const switchLanguage = (e: React.SyntheticEvent<HTMLSelectElement>) => {
     const newLanguage = e.currentTarget.value;
     const url = newLanguage === 'en' ? pathname : `/${newLanguage}${pathname}`;
     push(url);
+  };
+
+  const switchTheme = (e: React.SyntheticEvent<HTMLSelectElement>) => {
+    //
   };
 
   return (
@@ -62,12 +81,20 @@ const Header: NextPage<
           ))}
         </ul>
       </nav>
-
-      <Select
-        options={getLanguageDropdownOptions(locales, locale)}
-        onChange={switchLanguage}
-        className="ml-auto"
-      />
+      <div className="ml-auto">
+        <Select
+          options={themes}
+          onChange={switchTheme}
+          defaultValue={theme}
+          className="mr-5 dark:text-black"
+        />
+        <Select
+          options={getLanguageDropdownOptions(locales)}
+          onChange={switchLanguage}
+          defaultValue={locale}
+          className="dark:text-black"
+        />
+      </div>
     </header>
   );
 };

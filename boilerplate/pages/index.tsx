@@ -27,7 +27,7 @@ const HomeIndex: NextPage<
     <GlobalContext.Provider value={{ locale }}>
       <Layout>
         <section className="home">
-          <article className="prose prose-zinc lg:prose-xl">
+          <article className="prose prose-zinc dark:prose-invert lg:prose-xl">
             <h1>Garlic bread with cheese: What the science tells us</h1>
             <p>
               For years parents have espoused the health benefits of eating

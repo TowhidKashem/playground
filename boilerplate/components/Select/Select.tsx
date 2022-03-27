@@ -4,7 +4,6 @@ import type { NextPage } from 'next';
 export type Option = {
   label: string;
   value: string;
-  selected: boolean;
 };
 
 const Select: NextPage<
@@ -15,10 +14,11 @@ const Select: NextPage<
   return (
     <select
       {...selectProps}
-      className={`p-2 rounded-md ${selectProps.className}`}
+      className={`rounded-md p-2 ${selectProps.className}`}
+      defaultValue={selectProps.defaultValue}
     >
-      {options.map(({ label, value, selected }) => (
-        <option key={value} value={value} selected={selected}>
+      {options.map(({ label, value }) => (
+        <option key={value} value={value}>
           {label}
         </option>
       ))}
