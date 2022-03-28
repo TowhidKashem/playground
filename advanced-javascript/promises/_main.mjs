@@ -31,3 +31,42 @@ myPromise.then(
 const pendingPromise = new Promise((resolve, reject) => {});
 
 console.log('pending promise:', pendingPromise); // Promise { <pending> }
+
+//*--------------------------------------
+
+// chained then() blocks can return values from one to the next
+const resolvedPromise = () => {
+  return new Promise((resolve) => {
+    resolve('Resolved!');
+  });
+};
+
+resolvedPromise()
+  .then((resolvedValue) => {
+    console.log('resolvedValue:', resolvedValue);
+    return 'hello world';
+  })
+  .then((valueFromLastThenBlock) => {
+    console.log('valueFromLastThenBlock:', valueFromLastThenBlock);
+  })
+  .catch((err) => console.log(err));
+
+// If an error is thrown on any then() block all following then() blocks will be skipped and the catch() block will be triggered
+resolvedPromise()
+  .then((res) => {
+    throw 'Error thrown in the first then block!';
+  })
+  .then(() => console.log('then block 2')) // Skipped
+  .catch((err) => console.log(bgRed('error:'), err));
+
+// If a promise is rejected it won't trigger any of the then() blocks and go straight to catch()
+const rejectedPromise = () => {
+  return new Promise((resolve, reject) => {
+    reject('Rejected!');
+  });
+};
+
+rejectedPromise()
+  .then(() => console.log('then block 1')) // Skipped
+  .then(() => console.log('then block 2')) // Skipped
+  .catch((err) => console.log(bgRed('error:'), err));
