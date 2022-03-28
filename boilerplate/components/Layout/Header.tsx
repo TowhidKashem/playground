@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Select, { Option } from '@components/Select/Select';
-
-function getLanguageDropdownOptions(locales: string[]): Option[] {
-  const isoLabelMap = {
-    en: 'English',
-    fr: 'Français',
-    es: 'Español'
-  };
-  const options = locales.map((locale) => ({
-    label: isoLabelMap[locale],
-    value: locale
-  }));
-  return options;
-}
+import ThemePicker from './ThemePicker';
+import LanguagePicker from './LanguagePicker';
 
 const navItems = [
   {
@@ -32,42 +19,11 @@ const navItems = [
   }
 ];
 
-const themes = [
-  {
-    label: 'Light',
-    value: 'light'
-  },
-  {
-    label: 'Dark',
-    value: 'dark'
-  }
-];
-
 const Header: NextPage<
   Readonly<{
     foo: boolean;
   }>
 > = ({ foo }) => {
-  const { push, pathname, locales, locale } = useRouter();
-
-  const [theme, setTheme] = useState('light');
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-    }
-  }, []);
-
-  const switchLanguage = (e: React.SyntheticEvent<HTMLSelectElement>) => {
-    const newLanguage = e.currentTarget.value;
-    const url = newLanguage === 'en' ? pathname : `/${newLanguage}${pathname}`;
-    push(url);
-  };
-
-  const switchTheme = (e: React.SyntheticEvent<HTMLSelectElement>) => {
-    //
-  };
-
   return (
     <header className="flex">
       <nav>
@@ -82,18 +38,8 @@ const Header: NextPage<
         </ul>
       </nav>
       <div className="ml-auto">
-        <Select
-          options={themes}
-          onChange={switchTheme}
-          defaultValue={theme}
-          className="mr-5 dark:text-black"
-        />
-        <Select
-          options={getLanguageDropdownOptions(locales)}
-          onChange={switchLanguage}
-          defaultValue={locale}
-          className="dark:text-black"
-        />
+        <ThemePicker />
+        <LanguagePicker />
       </div>
     </header>
   );

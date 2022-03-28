@@ -11,7 +11,7 @@ const Card: NextPage<
   return (
     <article
       {...articleProps}
-      className={`p-10 bg-white rounded-md mb-3 ${articleProps.className}`}
+      className={`mb-3 rounded-md bg-white p-10 text-lg dark:bg-gray-800 ${articleProps.className}`}
     >
       <header>{title}</header>
       <p>{body}</p>
