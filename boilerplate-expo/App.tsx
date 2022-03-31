@@ -1,88 +1,93 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
-
-import Camera from './src/Camera/Camera';
 import Discover from './src/Discover/Discover';
 import Home from './src/Home/Home';
 import Inbox from './src/Inbox/Inbox';
 import Profile from './src/Profile/Profile';
+import CameraModal from './src/Camera/Camera';
 
 const Tab = createBottomTabNavigator();
 
-const getColor = (route: string, isTab: boolean = false): string => {
-  const darkRoutes = new Set(['Home']);
-  return darkRoutes.has(route) ? 'black' : 'white';
+const ROUTES = {
+  home: {
+    name: 'Home',
+    component: Home,
+    icon: 'home'
+  },
+  discover: {
+    name: 'Discover',
+    component: Discover,
+    icon: 'search1'
+  },
+  camera: {
+    name: 'Camera',
+    component: CameraModal, // Won't be used
+    icon: 'plussquare'
+  },
+  inbox: {
+    name: 'Inbox',
+    component: Inbox,
+    icon: 'message1'
+  },
+  profile: {
+    name: 'Profile',
+    component: Profile,
+    icon: 'user'
+  }
 };
 
 function App() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-          tabBarActiveBackgroundColor: getColor(route.name, true),
-          tabBarInactiveBackgroundColor: getColor(route.name, true)
-        })}
-      >
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="home" size={24} color={getColor('Home')} />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="Discover"
-          component={Discover}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign
-                name="search1"
-                size={24}
-                color={getColor('Discover')}
+    <>
+      <CameraModal showModal={showModal} setShowModal={setShowModal} />
+
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'gray',
+            tabBarActiveBackgroundColor: 'white',
+            tabBarInactiveBackgroundColor: 'white'
+          })}
+        >
+          {Object.keys(ROUTES).map((route) => {
+            const conditionalProps =
+              route === 'camera'
+                ? {
+                    listeners: ({ navigation }) => ({
+                      tabPress: (e) => {
+                        e.preventDefault();
+                        setShowModal(true);
+                      }
+                    })
+                  }
+                : {};
+            return (
+              <Tab.Screen
+                key={route}
+                name={route}
+                component={ROUTES[route].component}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <AntDesign
+                      name={ROUTES[route].icon}
+                      color="black"
+                      size={24}
+                    />
+                  )
+                }}
+                {...conditionalProps}
               />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="Camera"
-          component={Camera}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign
-                name="plussquare"
-                size={24}
-                color={getColor('Camera')}
-              />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="Inbox"
-          component={Inbox}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="message1" size={24} color={getColor('Inbox')} />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="user" size={24} color={getColor('Profile')} />
-            )
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+            );
+          })}
+        </Tab.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
