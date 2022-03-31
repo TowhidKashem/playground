@@ -12,6 +12,6 @@ const promise3 = new Promise((resolve) =>
   setTimeout(resolve, 300, 'third fastest')
 );
 
-const fastest = await Promise.any([promise1, promise2, promise3]);
+const fastest = await Promise.race([promise1, promise2, promise3]);
 
 console.log(bgBlue('fastest:'), fastest); // fastest
