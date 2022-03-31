@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 
-export default function App() {
+const CameraScreen: React.FC = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -19,6 +19,7 @@ export default function App() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type}>
@@ -39,7 +40,7 @@ export default function App() {
       </Camera>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -64,3 +65,5 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 });
+
+export default CameraScreen;
