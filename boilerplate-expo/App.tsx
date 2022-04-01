@@ -47,6 +47,7 @@ function App() {
 
       <NavigationContainer>
         <Tab.Navigator
+          initialRouteName="Discover"
           screenOptions={({ route }) => ({
             headerShown: false,
             tabBarActiveTintColor: 'tomato',
