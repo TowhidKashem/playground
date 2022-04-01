@@ -4,6 +4,7 @@ yarn-lock.json
 .*
 *.min.*
 *.map
+*.lottie.json
 
 /node_modules
 public

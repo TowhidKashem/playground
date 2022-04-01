@@ -21,6 +21,7 @@ const Discover: React.FC = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
