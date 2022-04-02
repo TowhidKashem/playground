@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import chalk from 'chalk';
-import { sleep } from '../_utils/index.mjs';
 const { bgRed, bgGreen } = chalk;
 
 // tldr; use Promise.all() when you need all promises to resolve or none at all
@@ -36,7 +35,10 @@ Promise.all([promise1, promise2, promise3])
 
 // Practical example
 const getData = async (url, isDelayed) => {
-  if (isDelayed) await sleep(1500);
+  if (isDelayed) {
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    await sleep(1500);
+  }
 
   return fetch(url)
     .then((res) => res.json())
