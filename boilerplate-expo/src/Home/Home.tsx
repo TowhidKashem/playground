@@ -1,48 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import * as Location from 'expo-location';
+// import * as Location from 'expo-location';
 import MapView, { Camera } from 'react-native-maps';
 
 const Home: React.FC = () => {
-  const [locationData, setLocationData] = useState<Camera | null>(null);
+  // const [locationData, setLocationData] = useState<Camera | null>(null);
 
-  useEffect(() => {
-    async function getLocation() {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        // permission to access location was denied
-        return;
-      }
+  // useEffect(() => {
+  //   async function getLocation() {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== 'granted') {
+  //       // permission to access location was denied
+  //       return;
+  //     }
 
-      const {
-        coords: { latitude, longitude, heading, altitude }
-      } = await Location.getCurrentPositionAsync({});
+  //     const {
+  //       coords: { latitude, longitude, heading, altitude }
+  //     } = await Location.getCurrentPositionAsync({});
 
-      setLocationData({
-        center: {
-          latitude,
-          longitude
-        },
-        heading,
-        pitch: 1,
-        zoom: 18,
-        altitude
-      } as Camera);
-    }
+  //     setLocationData({
+  //       center: {
+  //         latitude,
+  //         longitude
+  //       },
+  //       heading,
+  //       pitch: 1,
+  //       zoom: 18,
+  //       altitude
+  //     } as Camera);
+  //   }
 
-    getLocation();
-  }, []);
+  //   getLocation();
+  // }, []);
 
   return (
     <View style={styles.container}>
-      {locationData && (
+      <MapView style={styles.map} provider="google" showsUserLocation />
+
+      {/* {locationData && (
         <MapView
           style={styles.map}
           provider="google"
           camera={locationData}
           showsUserLocation
         />
-      )}
+      )} */}
     </View>
   );
 };

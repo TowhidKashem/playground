@@ -3,5 +3,17 @@
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": false
+    // "baseUrl": ".",
+    // "paths": {
+    //   "*": ["types/*.d.ts"],
+    //   "@pages/*": ["pages/*"],
+    //   "@components/*": ["components/*"],
+    //   "@types/*": ["types/*"],
+    //   "@hooks/*": ["hooks/*"],
+    //   "@utils/*": ["utils/*"],
+    //   "@styles/*": ["styles/*"],
+    //   "@public/*": ["public/*"],
+    //   "src/*": ["src/*"]
+    // }
   }
 }
