@@ -1,5 +1,7 @@
 // Proxies let us listen in on data structure changes on objects
 
+console.log('Proxy:\n');
+
 const person = new Proxy(
   {},
   {
@@ -29,3 +31,33 @@ person.name; // get() called
 'name' in person; // "has() called"
 
 delete person.name; // "deleteProperty() called"
+
+//*--------------------------------------
+
+console.log('\n\n\nObject.defineProperty:\n');
+
+const human = {};
+const humanData = {};
+
+Object.defineProperty(human, 'name', {
+  get: () => {
+    console.log('get() called');
+  },
+  set: (value) => {
+    console.log(`set() called, value: "${value}"`);
+    humanData.name = value;
+  }
+});
+
+human.name = 'Joe'; // set() called, value "Joe"
+
+human.name; // get() called
+
+// Using the `defineProperty` method prevents the original object from being writable
+console.log('human:', human); // {}
+
+// So we keep a second object for storing the data
+console.log('humanData:', humanData); // { name: 'Joe' }
+
+// set() is not triggered this time since `defineProperty` is set only on the `name` prop
+human.age = 33;
