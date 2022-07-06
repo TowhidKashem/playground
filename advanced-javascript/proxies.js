@@ -28,9 +28,9 @@ person.name = 'John'; // set() called
 
 person.name; // get() called
 
-'name' in person; // "has() called"
+'name' in person; // has() called
 
-delete person.name; // "deleteProperty() called"
+delete person.name; // deleteProperty() called
 
 //*--------------------------------------
 
@@ -40,18 +40,19 @@ const human = {};
 const humanData = {};
 
 Object.defineProperty(human, 'name', {
-  get: () => {
-    console.log('get() called');
+  get() {
+    console.log(`get() called, value: "${humanData.name}"`);
+    return humanData.name;
   },
-  set: (value) => {
+  set(value) {
     console.log(`set() called, value: "${value}"`);
     humanData.name = value;
   }
 });
 
-human.name = 'Joe'; // set() called, value "Joe"
+human.name = 'Joe'; // set() called, value: "Joe"
 
-human.name; // get() called
+human.name; // get() called, value: "Joe"
 
 // Using the `defineProperty` method prevents the original object from being writable
 console.log('human:', human); // {}
